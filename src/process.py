@@ -7,16 +7,19 @@
 import pandas as pd
 import GetOldTweets3 as got
 import numpy
-'''
-data = pd.read_excel(r'C:/Users/scott/OneDrive/Documents/UCSC/CSE145/Project/Tesla-Stock-Prediction/elonmusk1017.xlsx')
-data = data[::-1]
-data = data.reset_index(drop=True)
-'''
-tweetCriteria = got.manager.TweetCriteria().setUsername("elonmusk")\
-                                           .setSince("2020-04-27")\
-                                           .setUntil("2020-05-27")\
-                                           .setMaxTweets(0)\
-                                           .setEmoji("unicode")
-tweet = got.manager.TweetManager.getTweets(tweetCriteria)
-data = pd.DataFrame(tweet, columns = ['columns'])
-data.to_csv('../Customer_Churn_processed.csv', index=False)
+
+
+def scrape_tweets():
+    tweetCriteria = got.manager.TweetCriteria().setUsername("elonmusk").setSince("2010-06-28").setUntil("2020-05-27").setMaxTweets(0)
+    tweets = got.manager.TweetManager.getTweets(tweetCriteria)
+
+    tweet_list = [(tweet.id, tweet.permalink, tweet.username, tweet.to, tweet.text, tweet.date, tweet.retweets, tweet.favorites,
+                   tweet.mentions, tweet.hashtags, tweet.geo) for tweet in tweets]
+    df = pd.DataFrame(tweet_list, columns=['id', 'permalink', 'username', 'to', 'text', 'date', 'retweets', 'favorites', 'mentions', 'hashtags', 'geo'])
+    df.to_csv('elon_musk_tweets.csv', index=False)
+
+
+def process():
+    df = pd.read_csv('elon_musk_tweets_copy.csv')
+    for post in df['text']:
+        for char in post
