@@ -16,11 +16,11 @@ def scrape_tweets():
     tweet_list = [(tweet.id, tweet.permalink, tweet.username, tweet.to, tweet.text, tweet.date, tweet.retweets, tweet.favorites,
                    tweet.mentions, tweet.hashtags, tweet.geo) for tweet in tweets]
     df = pd.DataFrame(tweet_list, columns=['id', 'permalink', 'username', 'to', 'text', 'date', 'retweets', 'favorites', 'mentions', 'hashtags', 'geo'])
-    df.to_csv('elon_musk_tweets.csv', index=False)
+    df.to_csv('./data/elon_musk_tweets.csv', index=False)
 
 #preprocessing of data
 def process():
-    df = pd.read_csv('elon_musk_tweets.csv')
+    df = pd.read_csv('./data/elon_musk_tweets.csv')
 
     #removes links in the string
     cleaned_text = []
@@ -47,7 +47,7 @@ def process():
     df = df[df['cleaned_text'].notna()]
 
     #creates new file called elon_musk_tweets_copy
-    df.to_csv('elon_musk_tweets_copy.csv', index=False)
+    df.to_csv('./data/elon_musk_tweets_processed.csv', index=False)
 
 
 process()

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def frequency():
-    df = pd.read_csv('elon_musk_tweets_copy.csv')
+    df = pd.read_csv('./data/elon_musk_tweets_processed.csv')
     date1, date2, date3, date4, date5, date6, date7, date8, date9, date10, date11 = (0, ) * 11
 
     for tweets in df.date:
