@@ -73,8 +73,11 @@ def neural_net():
     df = pandas.read_csv('./data/train_test_samples.csv')
     X = df.X.tolist()
     y = df.y.tolist()
+
+    # 75-25 train test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=True)
 
+    # create simple feed forward model
     model = Sequential()
     model.add(Dense(16, input_dim=1, activation='relu'))
     model.add(Dense(8, activation='relu'))
@@ -88,7 +91,7 @@ def neural_net():
     _, final_accuracy, _ = model.evaluate(X_test, y_test)
     print('TEST ACCURACY:', final_accuracy)
 
-    # plot
+    # plot metrics
     plt.plot(history.history['accuracy'])
     plt.title('Accuracy over Epochs')
     plt.ylabel('Accuracy')
