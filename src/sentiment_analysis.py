@@ -14,3 +14,4 @@ for text in df.cleaned_text:
 df['polarity'] = polarity
 df['subjectivity'] = subjectivity
 df.to_csv('./data/elon_musk_tweets_sentiments.csv', index=False)
+
