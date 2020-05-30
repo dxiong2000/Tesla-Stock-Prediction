@@ -49,18 +49,6 @@ def frequency():
 
 def sentiment_graph():
     df = pd.read_csv('./data/elon_musk_tweets_sentiments.csv')
-    '''neg0, neu0, pos0 = (0, ) * 3
-    neg1, neu1, pos1 = (0, ) * 3
-    neg2, neu2, pos2 = (0, ) * 3
-    neg3, neu3, pos3 = (0, ) * 3
-    neg4, neu4, pos4 = (0, ) * 3
-    neg5, neu5, pos5 = (0, ) * 3
-    neg6, neu6, pos6 = (0, ) * 3
-    neg7, neu7, pos7 = (0, ) * 3
-    neg8, neu8, pos8 = (0, ) * 3
-    neg9, neu9, pos9 = (0, ) * 3
-    neg10, neu10, pos10 = (0, ) * 3'''
-
     neg, neu, pos = (0,) * 3
 
     for value in df['polarity']:
@@ -71,51 +59,12 @@ def sentiment_graph():
         else:
             neu += 1
 
-    '''    
-    v2010 = [neg0, neu0, pos0]
-    v2011 = [neg1, neu1, pos1]
-    v2012 = [neg2, neu2, pos2]
-    v2013 = [neg3, neu3, pos3]
-    v2014 = [neg4, neu4, pos4]
-    v2015 = [neg5, neu5, pos5]
-    v2016 = [neg6, neu6, pos6]
-    v2017 = [neg7, neu7, pos7]
-    v2018 = [neg8, neu8, pos8]
-    v2019 = [neg9, neu9, pos9]
-    v2020 = [neg10, neu10, pos10]
-
-    neg = [neg0, neg1, neg2, neg3, neg4, neg5, neg6, neg7, neg8, neg9, neg10]
-    neu = [neu0, neu1, neu2, neu3, neu4, neu5, neu5, neu7, neu8, neu9, neu10]
-    pos = [pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10]
-    barWidth = 1
-
-    plt.bar(0, neg, width=barWidth, edgecolor='white', align='center', label=str(2010))
-    plt.bar(1, neu, width=barWidth, edgecolor='white', align='center', label=str(2011))
-    plt.bar(2, pos, width=barWidth, edgecolor='white', align='center', label=str(2012))
-
-    plt.bar(0, v2010, width=barWidth, edgecolor='white', align='center', label=str(2010))
-    plt.bar(1, v2011, width=barWidth, edgecolor='white', align='center', label=str(2011))
-    plt.bar(2, v2012, width=barWidth, edgecolor='white', align='center', label=str(2012))
-    plt.bar(3, v2013, width=barWidth, edgecolor='white', align='center', label=str(2013))
-    plt.bar(4, v2014, width=barWidth, edgecolor='white', align='center', label=str(2014))
-    plt.bar(5, v2015, width=barWidth, edgecolor='white', align='center', label=str(2015))
-    plt.bar(6, v2016, width=barWidth, edgecolor='white', align='center', label=str(2016))
-    plt.bar(7, v2017, width=barWidth, edgecolor='white', align='center', label=str(2017))
-    plt.bar(8, v2018, width=barWidth, edgecolor='white', align='center', label=str(2018))
-    plt.bar(9, v2019, width=barWidth, edgecolor='white', align='center', label=str(2019))
-    plt.bar(10, v2020, width=barWidth, edgecolor='white', align='center',label=str(2020))
-    
-    plt.xlabel('Sentiment Value', fontweight='bold')
-    plt.ylabel('Number of Tweets', fontweight='bold')
-    plt.title('Sentiment Analysis Frequency')
-    plt.xticks([r for r in range(3)], [ "2010", "2011", "2012"])
-'''
-    ax = plt.subplot(111)
+    plt.subplot(111)
     w = 0.3
-    ax.bar(0, neg, width=w, color='b', align='center')
-    ax.bar(1, neu, width=w, color='g', align='center')
-    ax.bar(2, pos, width=w, color='r', align='center')
-    ax.autoscale(tight=True)
+    plt.bar(0, neg, width=w, color='b', align='center')
+    plt.bar(1, neu, width=w, color='g', align='center')
+    plt.bar(2, pos, width=w, color='r', align='center')
+    plt.autoscale(tight=True)
 
     plt.xlabel('Sentiment Value', fontweight='bold')
     plt.ylabel('Number of Tweets', fontweight='bold')
