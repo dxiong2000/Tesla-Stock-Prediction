@@ -3,7 +3,12 @@ from matplotlib import pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.model_selection import train_test_split
-
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+import numpy as np
+from sklearn import tree
+import graphviz
 
 # HYPERPARAMETERS
 LOSS = 'binary_crossentropy'
@@ -104,5 +109,44 @@ def neural_net():
     plt.xlabel('Epoch')
     plt.show()
 
+    return
 
-neural_net()
+
+def decision_tree():
+    df = pandas.read_csv('./data/train_test_samples.csv')
+    X = df.X.tolist()
+    y = df.y.tolist()
+    # 75-25 train test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=True)
+    model = DecisionTreeClassifier(max_depth=3)
+    X_train = np.array(X_train).reshape(-1, 1)
+    X_test = np.array(X_test).reshape(-1, 1)
+
+    model = model.fit(X_train, y_train)
+
+    y_predict = model.predict(X_test)
+
+    #EXPORTING TREE AS PNG
+    import os
+    os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
+
+    dot_data = tree.export_graphviz(model, out_file=None)
+    graph = graphviz.Source(dot_data)
+    graph.format = 'png'
+    graph.render("tree")
+
+    print('Decision Tree accuracy:', accuracy_score(y_test, y_predict))
+
+    acc = 0
+    for i in range(50):
+        randforest = RandomForestClassifier(max_depth=3)
+        randforest = randforest.fit(X_train, y_train)
+        y_predict = randforest.predict(X_test)
+        acc += accuracy_score(y_test, y_predict)
+
+    print('Random Forest accuracy:', acc/50)
+
+    return
+
+
+decision_tree()
