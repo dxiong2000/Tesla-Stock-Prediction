@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
 import numpy as np
 from sklearn import tree
 import graphviz
@@ -72,6 +73,8 @@ def preprocess():
 
     df = pandas.DataFrame(list(zip(X, y)), columns=['X', 'y'])
     df.to_csv('./data/train_test_samples.csv')
+
+    return
 
 
 def neural_net():
@@ -149,4 +152,20 @@ def decision_tree():
     return
 
 
-decision_tree()
+def naive_bayes():
+    df = pandas.read_csv('./data/train_test_samples.csv')
+    X = df.X.tolist()
+    y = df.y.tolist()
+    # 75-25 train test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=True)
+    X_train = np.array(X_train).reshape(-1, 1)
+    X_test = np.array(X_test).reshape(-1, 1)
+
+    gnb = GaussianNB()
+    y_pred = gnb.fit(X_train, y_train).predict(X_test)
+    print('Naive Bayes accuracy:', accuracy_score(y_test, y_pred))
+
+    return
+
+
+naive_bayes()
