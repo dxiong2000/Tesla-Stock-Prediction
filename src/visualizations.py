@@ -72,6 +72,59 @@ def sentiment_graph():
     plt.xticks([r for r in range(3)], ["negative", "neutral", "positive"])
     plt.show()
 
+def stock_overtime():
+    df_tesla = pd.read_excel('./data/TSLA.xlsx')
+    df = df_tesla.iloc[729:751]
+    df = df[::-1].reset_index().drop(columns=['index'])
+    df['Adj Close'].plot(label='TSLA', title='Adjusted Closing Price for June 2017')
+    plt.xlabel('date', fontweight='bold')
+    plt.ylabel('closing price', fontweight='bold')
+    plt.xticks([r for r in range(22)], ["2017-06-01",'','','','','','','','','','','','','','','','','','','','', "2017-06-30"])
+    plt.show()
 
-frequency()
-sentiment_graph()
+def sentiment_overtime():
+    df_tweets = pd.read_csv('./data/elon_musk_tweets_sentiments.csv')
+    df_tesla = pd.read_excel('./data/TSLA.xlsx')
+    dates = []   
+    for value in df_tweets['date']:
+        dates.append(pd.Timestamp(value).tz_convert('America/New_York'))
+    df_tweets['date'] = dates
+    df_tweets = df_tweets.iloc[::-1].reset_index().drop(columns=['index'])
+    
+    dates = []
+    for date in df_tesla.Date:
+        dates.append(pd.Timestamp('{} 16:00:00-04:00'.format(str(date))))
+    df_tesla['Date'] = dates
+    df_tesla = df_tesla.iloc[::-1].reset_index().drop(columns=['index'])
+    
+    tweet_i = 2460
+    tweet_entry = df_tweets.iloc[tweet_i]
+    tesla_i = 1382
+    df_t = df_tesla.iloc[1382:1404]
+
+    X = []
+    for stock_day in df_t.Date:
+        polarity = 0
+        n = 0
+        while tweet_entry.date < stock_day:
+            polarity += tweet_entry.polarity
+            n += 1
+            tweet_i += 1
+            if tweet_i >= 2655:
+                break
+            tweet_entry = df_tweets.iloc[tweet_i]
+        if n != 0:
+            polarity = polarity/n
+            X.append(polarity)
+
+    plt.plot(X)
+    plt.xlabel('Avg Sentiment', fontweight='bold')
+    plt.ylabel('Date with Open Market', fontweight='bold')
+    plt.title('Avg sentiment for June 2017', fontweight='bold')
+    plt.xticks([r for r in range(19)], ["2017-06-01",'','','','','','','','','','','','','','','','','', "2017-06-30"])
+    plt.show()
+    
+stock_overtime()
+sentiment_overtime()
+#frequency()
+#sentiment_graph()
