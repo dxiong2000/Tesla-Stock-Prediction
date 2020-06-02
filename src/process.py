@@ -1,8 +1,4 @@
 # Pre-process data for data mining and analysis
-#
-#
-#
-#
 
 import pandas as pd
 import GetOldTweets3 as got
@@ -49,5 +45,5 @@ def process():
     #creates new file called elon_musk_tweets_copy
     df.to_csv('./data/elon_musk_tweets_processed.csv', index=False)
 
-
+scrape_tweets()
 process()

@@ -47,7 +47,7 @@ def frequency():
     plt.show()
 
 
-def sentiment_graph():
+def sentiment_distribution():
     df = pd.read_csv('./data/elon_musk_tweets_sentiments.csv')
     neg, neu, pos = (0,) * 3
 
@@ -70,6 +70,26 @@ def sentiment_graph():
     plt.ylabel('Number of Tweets', fontweight='bold')
     plt.title('Sentiment Analysis Frequency')
     plt.xticks([r for r in range(3)], ["negative", "neutral", "positive"])
+    plt.show()
+
+
+def class_distribution():
+    df_tesla = pd.read_excel('./data/TSLA.xlsx')
+    up = 0
+    down = 0
+    for day_open, day_close in zip(df_tesla.Open, df_tesla.Close):
+        if day_close - day_open > 0:
+            up += 1
+        else:
+            down += 1
+
+    w = 0.4
+    plt.bar(0, up, width=w, color='b', align='center')
+    plt.bar(1, down, width=w, color='r', align='center')
+    plt.xlabel('Stock Movement', fontweight='bold')
+    plt.ylabel('Frequency', fontweight='bold')
+    plt.title('Class Frequency')
+    plt.xticks([r for r in range(2)], ["Up", "Down"])
     plt.show()
 
 def stock_overtime():
@@ -123,8 +143,10 @@ def sentiment_overtime():
     plt.title('Avg sentiment for June 2017', fontweight='bold')
     plt.xticks([r for r in range(19)], ["2017-06-01",'','','','','','','','','','','','','','','','','', "2017-06-30"])
     plt.show()
-    
-stock_overtime()
+
+
+frequency()
+sentiment_distribution()
+class_distribution()
 sentiment_overtime()
-#frequency()
-#sentiment_graph()
+stock_overtime()

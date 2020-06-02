@@ -188,7 +188,7 @@ def random_forest():
     X_train = np.array(X_train).reshape(-1, 1)
     X_test = np.array(X_test).reshape(-1, 1)
 
-    randforest = RandomForestClassifier(max_depth=3)
+    randforest = RandomForestClassifier(max_depth=2, max_leaf_nodes=5)
     randforest = randforest.fit(X_train, y_train)
     y_pred = randforest.predict(X_test)
 
