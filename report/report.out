@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.3}{Tools Used}{}% 3
+\BOOKMARK [1][-]{section.4}{Data}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Data Collection}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Data Pre-processing for Sentiment Analysis}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Sentiment Analysis}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Data Understanding and Analysis}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{Prediction Models}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Neural Network}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Decision Tree}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{Random Forest}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.4}{Na\357ve Bayes}{section.5}% 13
+\BOOKMARK [1][-]{section.6}{Analysis and Conclusion}{}% 14
+\BOOKMARK [1][-]{section.7}{Related Work}{}% 15

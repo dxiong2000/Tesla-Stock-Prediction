@@ -20,6 +20,7 @@
 \usepackage{tabto}
 \usepackage{caption}
 \usepackage{diagbox}
+\usepackage{hyperref}
 
 \title{CSE 145 - Final Project}
 \author{Daniel Xiong (dxiong5@ucsc.edu)\\
@@ -44,7 +45,7 @@ We collected \texttt{\$TSLA} stock history by downloading it directly from Yahoo
 Elon Musk's tweets were scraped using Python's \texttt{GetOldTweets3} package. We first tried using Twitter's API directly, but the API doesn't allow us to scrape tweets older than a week. \texttt{GetOldTweets3} is a package that doesn't have such limitations, allowing us to obtain all of Musk's 9785 tweets. The raw data, which contains a tweet ID, permalink to the tweet, Twitter handles, tweet contents, date, retweets, and favorites, is stored in \texttt{/src/data/TSLA.csv}.
 
 \subsection{Data Pre-processing for Sentiment Analysis}
-Elon Musk's tweets needed substantive pre-processing for sentiment analysis. The initial pre-processing step was to remove non-English characters, such as Chinese and Russian, and to remove tweets that were just pictures with no text caption. Next, to prepare the dataset for sentiment analysis, we strip all punctuation (!, ?, \$, etc.), numbers, and excessive whitespace. We do this because these characters do not have any inherent sentiment, so it would not contribute to the sentiment analysis task. The processed tweets are stored in \texttt{/src/data/elon\_musk\_tweets\_processed.csv}.
+Elon Musk's tweets needed substantive pre-processing for sentiment analysis. The initial pre-processing step was to remove non-English characters, such as Chinese and Russian, remove tweets that were just pictures with no text caption, and remove hyperlinks. Next, to prepare the dataset for sentiment analysis, we strip all punctuation (!, ?, \$, etc.), numbers, and excessive whitespace. We do this because these characters do not have any inherent sentiment, so it would not contribute to the sentiment analysis task. The processed tweets are stored in \texttt{/src/data/elon\_musk\_tweets\_processed.csv}.
 
 \subsection{Sentiment Analysis}
 For sentiment analysis, we used Python's \texttt{TextBlob} package. \texttt{TextBlob} uses WordNet, a lexical database of words and their semantic relationships that is designed to be used for NLP tasks. \texttt{TextBlob} uses WordNet, a pre-trained Part-of-Speech tagging model, and a pre-trained sentiment model to output a polarity and subjectivity measure. We focused on the polarity measure, which is a number in the range $[-1,1]$, where $-1$ is a negative sentiment and $1$ is a positive sentiment. Each tweet in our dataset was given a polarity measure, and is stored in \texttt{/src/data/elon\_musk\_tweets\_sentiments.csv}.
@@ -214,5 +215,14 @@ We chose to include a naïve bayes classifier model because we wanted to see how
 	\end{tabular}
 \end{table}
 We can see that this naïve bayes classifier model gave very similar scores in comparison to the random forest model.
-\section{Conclusion}
+\section{Analysis and Conclusion}
+All of our models performed poorly, with accuracies of 50.55\%, 51.79\%, 52.68\%, and 50.89\% on the neural network, decision tree, random forest, and naïve bayes models respectively. The data was balanced, and the training and test data was shuffled to mitigate any patterns in the data ordering. \\\\
+The most probable conclusion we can draw from our model performance is that there is no correlation between Elon Musk's tweet sentiment and Tesla's stock performance. There are some edge cases however, such as when Musk tweeted "Tesla stock price is too high imo" and \texttt{\$TSLA} subsequently dropped 10\%. This tweet can be considered an edge case because Musk rarely explicitly mentions \texttt{\$TSLA} stock price.\\\\
+All in all, even though Elon Musk is outspoken and has tweeted some pretty controversial things, Wall Street simply does not care and will only care about earnings reports and profits. 
+
+\section{Related Work}
+One related project we found ran a sentiment analysis on Donald Trump's tweets, and try to predict the performance of the S\&P 500 index. \href{https://towardsdatascience.com/covfefe-nlp-do-trumps-tweets-move-the-stock-market-42a83ab17fea}{Link Here}\\\\
+Another related project we found used sentiment analysis on a daily corpus of tweets to try and predict the Dow Jones Industrial Average. \href{http://cs229.stanford.edu/proj2011/GoelMittal-StockMarketPredictionUsingTwitterSentimentAnalysis.pdf}{Link Here}
+
+
 \end{document}
